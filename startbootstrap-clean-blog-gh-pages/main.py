@@ -2,7 +2,7 @@ from flask import Flask, render_template
 import requests
 
 app = Flask(__name__)
-blog_endpoint = "https://api.npoint.io/8ea399838b3778277af1"
+blog_endpoint = "https://api.npoint.io/674f5423f73deab1e9a7"
 response = requests.get(blog_endpoint)
 response.raise_for_status()
 blog_data = response.json()
@@ -21,6 +21,11 @@ def about():
 @app.route("/contact")
 def contact():
     return render_template('contact.html')
+
+
+@app.route("/post/<int:post_id>")
+def post(post_id):
+    return render_template('post.html', post=post_id-1, blog=blog_data)
 
 
 app.run(debug=True)
